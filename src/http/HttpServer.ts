@@ -4,7 +4,7 @@ import { cors } from "hono/cors";
 import dotenv from "dotenv";
 import RequestHandler from "@http/RequestHandler";
 
-class HTTPServer {
+class HttpServer {
   static httpServer: ServerType | null = null;
 
   /**
@@ -23,7 +23,7 @@ class HTTPServer {
 
     RequestHandler.init(honoApp);
 
-    HTTPServer.httpServer = serve({
+    HttpServer.httpServer = serve({
       fetch: honoApp.fetch,
       port: parseInt(env.HTTP_PORT),
     });
@@ -36,18 +36,18 @@ class HTTPServer {
    */
   static async stop(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (!HTTPServer.httpServer) {
+      if (!HttpServer.httpServer) {
         resolve();
         return;
       }
 
-      HTTPServer.httpServer.close((error) => {
+      HttpServer.httpServer.close((error) => {
         if (error) reject(error);
         else resolve();
       });
-      HTTPServer.httpServer = null;
+      HttpServer.httpServer = null;
     });
   }
 }
 
-export default HTTPServer;
+export default HttpServer;
