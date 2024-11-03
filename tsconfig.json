@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "removeComments": true,
+    "outDir": "./dist",
+    "rootDir": ".",
+    "paths": {
+        "@types/*": ["./types/*"],
+        "@db/*": ["./src/db/*"],
+        "@http/*": ["./src/http/*"],
+        "@utils/*": ["./src/utils/*"]
+    }
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./types/**/*.ts"
+  ]
+}

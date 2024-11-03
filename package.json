@@ -1,0 +1,36 @@
+{
+  "name": "shopware-bridge",
+  "version": "1.0.0",
+  "description": "Bridge to access the Shopware API from public environments.",
+  "repository": "devite-io/shopware-bridge",
+  "license": "MIT",
+  "author": {
+    "name": "Justus Geramb <justus@devite.io>",
+    "url": "https://www.devite.io"
+  },
+  "exports": "./dist/app.mjs",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "nodemon ./src/index.ts",
+    "build": "tsc && pnpx rollup --config --silent"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.2",
+    "dotenv": "^16.4.5",
+    "hono": "^4.6.5",
+    "mariadb": "^3.3.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
+    "rollup": "^4.24.3",
+    "ts-node": "^10.9.2",
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.3"
+  }
+}
