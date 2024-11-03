@@ -5,13 +5,14 @@ import dotenv from "dotenv";
 import RequestHandler from "@http/RequestHandler";
 
 class HttpServer {
-  static httpServer: ServerType | null = null;
+  private httpServer: ServerType | null = null;
+  private requestHandler: RequestHandler | null = null;
 
   /**
    * Starts the HTTP server.
    * @throws {Error} if environment variables are not set
    */
-  static start() {
+  public start() {
     const env = dotenv.config().parsed;
 
     if (!env) {
@@ -21,11 +22,12 @@ class HttpServer {
     const honoApp = new Hono();
     honoApp.use(cors());
 
-    RequestHandler.init(honoApp);
+    this.requestHandler = new RequestHandler(honoApp);
+    this.requestHandler.initRouting();
 
-    HttpServer.httpServer = serve({
+    this.httpServer = serve({
       fetch: honoApp.fetch,
-      port: parseInt(env.HTTP_PORT),
+      port: parseInt(env.HTTP_PORT)
     });
 
     console.log(`HTTP server listens on port ${env.HTTP_PORT}`);
@@ -34,18 +36,18 @@ class HttpServer {
   /**
    * Stops the HTTP server.
    */
-  static async stop(): Promise<void> {
+  public async stop(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (!HttpServer.httpServer) {
+      if (!this.httpServer) {
         resolve();
         return;
       }
 
-      HttpServer.httpServer.close((error) => {
+      this.httpServer.close((error) => {
         if (error) reject(error);
         else resolve();
       });
-      HttpServer.httpServer = null;
+      this.httpServer = null;
     });
   }
 }
